@@ -26,6 +26,7 @@ import {
 } from '@backstage/core-components';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { useEntity } from '@backstage/plugin-catalog-react';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
