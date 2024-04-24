@@ -17,7 +17,7 @@ metadata:
 spec:
   type: service
   lifecycle: experimental
-  owner: guests
+  owner: test
   system: examples
   providesApis: [example-grpc-api]
 ---

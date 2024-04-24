@@ -57,8 +57,8 @@ import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { identityApiRef, useApi } from '@backstage/core-plugin-api';
 import useAsync from 'react-use/esm/useAsync';
-// import { MatchOwnerEntity } from '../kubernetes/MatchOwnerEntity';
-import { CustomKubernetesContentExtension} from '../kubernetes/plugin';
+// // import { MatchOwnerEntity } from '../kubernetes/MatchOwnerEntity';
+// import { CustomKubernetesContentExtension} from '../kubernetes/plugin';
 
 // const { entity } = useEntity();
 // const owner = entity;
@@ -174,9 +174,7 @@ const overviewContent = (
 const serviceEntityPage = (
   <EntityLayout>
      <EntityLayout.Route path="/kubernetes" title="Kubernetes">
-      {/* <MatchOwnerEntity/> */}
-      {/* <MyRoutableExtension/> */}
-      <CustomKubernetesContentExtension/>
+      <EntityKubernetesContent refreshIntervalMs={30000} />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/" title="Overview">
