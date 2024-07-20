@@ -14,9 +14,9 @@ spec:
   parameters:
     - title: Fill in some steps
       required:
-        - name
+        - projectName
       properties:
-        name:
+        projectName:
           title: Name
           type: string
           description: Unique name of the component
@@ -43,9 +43,9 @@ spec:
       name: Fetch Base
       action: fetch:template
       input:
-        url: ./content
+        url: https://github.com/toasahi/resource-repo/blob/main/portfolio/system.yaml
         values:
-          name: ${{ parameters.name }}
+          projectName: ${{ parameters.projectName }}
 
     # This step publishes the contents of the working directory to GitHub.
     - id: publish

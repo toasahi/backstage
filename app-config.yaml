@@ -89,7 +89,11 @@ catalog:
     - type: file
       target: ../../examples/entities.yaml
 
-    # Local example template
+    - type: file
+      target: ../../examples/template/component.yaml
+      rules:
+        - allow: [Component]
+
     - type: file
       target: ../../examples/template/template.yaml
       rules:
@@ -115,7 +119,6 @@ catalog:
     #   rules:
     #     - allow: [User, Group]
 
-kubernetes:
   serviceLocatorMethod:
     type: 'multiTenant'
   clusterLocatorMethods:
