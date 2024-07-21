@@ -1,17 +1,12 @@
 import { createTemplateAction } from '@backstage/plugin-scaffolder-node';
-import {
-  DatabaseManager,
-} from '@backstage/backend-common';
+import { DatabaseManager } from '@backstage/backend-common';
 import { DatabaseTaskStore } from '@backstage/plugin-scaffolder-backend';
 import { ConfigReader } from '@backstage/config';
 
-export function useTemplateMemory() {
-  return createTemplateAction<{
-    myParameter: string;
-  }>({
-    id: 'use:Memory',
-    description: 'use:Memory',
-    schema: {},
+export function useTemplateMetrics() {
+  return createTemplateAction({
+    id: 'use:Metrics',
+    description: 'use:Metrics',
     async handler(ctx) {
       // MEMO: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/src/scaffolder/tasks/DatabaseTaskStore.test.ts
       const manager = DatabaseManager.fromConfig(

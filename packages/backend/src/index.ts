@@ -22,12 +22,6 @@ const scaffolderModuleCustomExtensions = createBackendModule({
       },
       async init({ scaffolder /* ..., other dependencies */ }) {
         scaffolder.addActions(useTemplateMemory()); // just an example
-      },
-    });
-  },
-});
-
-const backend = createBackend();
 
 backend.add(scaffolderModuleCustomExtensions);
 
