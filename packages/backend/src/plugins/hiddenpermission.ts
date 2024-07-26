@@ -1,7 +1,5 @@
 import { createTemplateAction } from '@backstage/plugin-scaffolder-node';
-import {
-  DatabaseManager,
-} from '@backstage/backend-common';
+import { DatabaseManager } from '@backstage/backend-common';
 import { DatabaseTaskStore } from '@backstage/plugin-scaffolder-backend';
 import { ConfigReader } from '@backstage/config';
 
@@ -14,31 +12,22 @@ export function useTemplateMemory() {
     schema: {},
     async handler(ctx) {
       // MEMO: https://github.com/backstage/backstage/blob/master/plugins/scaffolder-backend/src/scaffolder/tasks/DatabaseTaskStore.test.ts
+      // app-config.yamlの環境変数から設定を読み取れるのではないか？デフォルトのKnexの設定を見る
       const manager = DatabaseManager.fromConfig(
         new ConfigReader({
           backend: {
             database: {
               client: 'pg',
               connection: {
-                host: process.env.POSTGRES_HOST,
-                port: process.env.POSTGRES_PORT,
-                user: process.env.POSTGRES_USER,
-                password: process.env.POSTGRES_PASSWORD,
+                host: 'localhost',
+                port: 5432,
+                user: 'postgres',
+                password: 'postgres',
               },
             },
           },
         }),
       ).forPlugin('scaffolder');
-      //   const manager = DatabaseManager.fromConfig(
-      //     new ConfigReader({
-      //       backend: {
-      //         database: {
-      //           client: 'better-sqlite3',
-      //           connection: ':memory:',
-      //         },
-      //       },
-      //     }),
-      //   ).forPlugin('scaffolder');
       const databaseTaskStore = await DatabaseTaskStore.create({
         database: manager,
       });

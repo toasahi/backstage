@@ -1,7 +1,8 @@
 import { createTemplateAction } from '@backstage/plugin-scaffolder-node';
 import { DatabaseManager } from '@backstage/backend-common';
 import { DatabaseTaskStore } from '@backstage/plugin-scaffolder-backend';
-import { ConfigReader } from '@backstage/config';
+import { ConfigReader, Config } from '@backstage/config';
+import { loadBackendConfig } from '@backstage/backend-common';
 
 export function useTemplateMetrics() {
   return createTemplateAction({
@@ -37,8 +38,8 @@ export function useTemplateMetrics() {
       const databaseTaskStore = await DatabaseTaskStore.create({
         database: manager,
       });
-      const test = await databaseTaskStore.list({});
-      console.log(test);
+      const tasks = await databaseTaskStore.list({});
+      ctx.logger.info(tasks);
     },
   });
 }
