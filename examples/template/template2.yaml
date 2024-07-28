@@ -1,0 +1,34 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
+kind: Template
+metadata:
+  name: Test
+  title: Test
+  description: Test
+spec:
+  owner: user:guest
+  type: service
+  parameters:
+    - title: Test
+      properties:
+        animal:
+          title: Name
+          type: string
+  steps:
+    - id: debug
+      name: Debug
+      action: debug:log
+      input:
+        message: "debug"
+    - id: test
+      name: Debug
+      action: use:Memory
+
+  # Outputs are displayed to the user after a successful execution of the template.
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish'].output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps['register'].output.entityRef }}

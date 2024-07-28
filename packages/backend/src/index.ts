@@ -5,10 +5,31 @@
  *
  * Happy hacking!
  */
-
+import { createBackendModule } from '@backstage/backend-plugin-api';
+import './otel/instrumentation';
 import { createBackend } from '@backstage/backend-defaults';
+import { scaffolderActionsExtensionPoint } from '@backstage/plugin-scaffolder-node/alpha';
+import { useTemplateMemory } from './plugins/useTemplateMemory';
+
+const scaffolderModuleCustomExtensions = createBackendModule({
+  pluginId: 'scaffolder', // name of the plugin that the module is targeting
+  moduleId: 'custom-extensions',
+  register(env) {
+    env.registerInit({
+      deps: {
+        scaffolder: scaffolderActionsExtensionPoint,
+        // ... and other dependencies as needed
+      },
+      async init({ scaffolder /* ..., other dependencies */ }) {
+        scaffolder.addActions(useTemplateMemory()); // just an example
+      },
+    });
+  },
+});
 
 const backend = createBackend();
+
+backend.add(scaffolderModuleCustomExtensions);
 
 backend.add(import('@backstage/plugin-app-backend/alpha'));
 backend.add(import('@backstage/plugin-proxy-backend/alpha'));
