@@ -1,11 +1,7 @@
-import { ConfigReader } from '@backstage/config';
 import { DatabaseTaskStore } from '@backstage/plugin-scaffolder-backend';
 import { templateUsageCount } from './instrumentation';
 import { DatabaseManager } from '@backstage/backend-common';
-import {
-  DatabaseService,
-  RootConfigService,
-} from '@backstage/backend-plugin-api';
+import { RootConfigService } from '@backstage/backend-plugin-api';
 
 export const updateTemplateUsage = async (
   config: RootConfigService,
