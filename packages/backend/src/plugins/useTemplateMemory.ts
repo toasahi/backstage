@@ -9,7 +9,7 @@ export function useTemplateMemory() {
     description: 'use:Memory',
     schema: {},
     async handler(ctx) {
-      await updateTemplateUsage(ctx.templateInfo?.entity?.metadata.name);
+      // await updateTemplateUsage(ctx.templateInfo?.entity?.metadata.name);
     },
   });
 }

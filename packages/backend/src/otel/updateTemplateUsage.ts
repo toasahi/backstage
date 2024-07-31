@@ -2,28 +2,21 @@ import { ConfigReader } from '@backstage/config';
 import { DatabaseTaskStore } from '@backstage/plugin-scaffolder-backend';
 import { templateUsageCount } from './instrumentation';
 import { DatabaseManager } from '@backstage/backend-common';
+import {
+  DatabaseService,
+  RootConfigService,
+} from '@backstage/backend-plugin-api';
 
-export const updateTemplateUsage = async (template = '') => {
-
-  const manager = DatabaseManager.fromConfig(
-    new ConfigReader({
-      backend: {
-        database: {
-          client: 'pg',
-          connection: {
-            host: 'localhost',
-            port: 5432,
-            user: 'postgres',
-            password: 'postgres',
-          },
-        },
-      },
-    }),
-  ).forPlugin('scaffolder');
+export const updateTemplateUsage = async (
+  config: RootConfigService,
+  template = '',
+) => {
+  const manager = DatabaseManager.fromConfig(config).forPlugin('scaffolder');
   const databaseTaskStore = await DatabaseTaskStore.create({
     database: manager,
   });
   const { tasks } = await databaseTaskStore.list({});
+  console.log(tasks);
 
   if (template !== '') {
     templateUsageCount.record(1, {

@@ -6,7 +6,7 @@
  * Happy hacking!
  */
 import { createBackendModule } from '@backstage/backend-plugin-api';
-import './otel/instrumentation';
+// import './otel/instrumentation';
 import { createBackend } from '@backstage/backend-defaults';
 import { scaffolderActionsExtensionPoint } from '@backstage/plugin-scaffolder-node/alpha';
 import { useTemplateMemory } from './plugins/useTemplateMemory';
@@ -67,5 +67,7 @@ backend.add(import('@backstage/plugin-search-backend-module-pg/alpha'));
 // search collators
 backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
+
+backend.add(import('./plugins/otel'))
 
 backend.start();

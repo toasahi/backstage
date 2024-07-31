@@ -10,7 +10,6 @@ import {
   SEMRESATTRS_SERVICE_NAME,
   SEMRESATTRS_SERVICE_VERSION,
 } from '@opentelemetry/semantic-conventions';
-import { updateTemplateUsage } from './updateTemplateUsage';
 
 const meterProvider = new MeterProvider({
   resource: new Resource({
@@ -42,5 +41,3 @@ const sdk = new NodeSDK({
 });
 
 sdk.start();
-
-updateTemplateUsage();
