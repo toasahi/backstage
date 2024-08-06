@@ -5,25 +5,11 @@
  *
  * Happy hacking!
  */
-import { createBackendModule } from '@backstage/backend-plugin-api';
-// import './otel/instrumentation';
+import './otel/instrumentation';
 import { createBackend } from '@backstage/backend-defaults';
-import { scaffolderActionsExtensionPoint } from '@backstage/plugin-scaffolder-node/alpha';
-import { useTemplateMemory } from './plugins/useTemplateMemory';
 
-const scaffolderModuleCustomExtensions = createBackendModule({
-  pluginId: 'scaffolder', // name of the plugin that the module is targeting
-  moduleId: 'custom-extensions',
-  register(env) {
-    env.registerInit({
-      deps: {
-        scaffolder: scaffolderActionsExtensionPoint,
-        // ... and other dependencies as needed
-      },
-      async init({ scaffolder /* ..., other dependencies */ }) {
-        scaffolder.addActions(useTemplateMemory()); // just an example
 
-backend.add(scaffolderModuleCustomExtensions);
+const backend = createBackend();
 
 backend.add(import('@backstage/plugin-app-backend/alpha'));
 backend.add(import('@backstage/plugin-proxy-backend/alpha'));
@@ -41,7 +27,6 @@ backend.add(import('@backstage/plugin-catalog-backend/alpha'));
 backend.add(
   import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
 );
-backend.add(import('@backstage/plugin-catalog-backend-module-github/alpha'));
 
 // See https://backstage.io/docs/features/software-catalog/configuration#subscribing-to-catalog-errors
 backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
