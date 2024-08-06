@@ -35,7 +35,7 @@ import {
   EntityOwnershipCard,
 } from '@backstage/plugin-org';
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
-import { EmptyState, UserIdentity } from '@backstage/core-components';
+import { EmptyState } from '@backstage/core-components';
 import {
   Direction,
   EntityCatalogGraphCard,
@@ -50,14 +50,14 @@ import {
   RELATION_PART_OF,
   RELATION_PROVIDES_API,
 } from '@backstage/catalog-model';
-import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
-import { useEntity } from '@backstage/plugin-catalog-react';
-import { identityApiRef, useApi } from '@backstage/core-plugin-api';
-import useAsync from 'react-use/esm/useAsync';
+// import { useEntity } from '@backstage/plugin-catalog-react';
+// import { identityApiRef, useApi } from '@backstage/core-plugin-api';
+// import useAsync from 'react-use/esm/useAsync';
 import { SimpleCard } from '../custom-card';
+import RDSStop from './RDSStop';
 // // import { MatchOwnerEntity } from '../kubernetes/MatchOwnerEntity';
 // import { CustomKubernetesContentExtension} from '../kubernetes/plugin';
 
@@ -65,26 +65,26 @@ import { SimpleCard } from '../custom-card';
 // const owner = entity;
 // console.log("test"+owner)
 
-const MatchOwnerEntity = () => {
-  const { entity } = useEntity();
-  const identityApi = useApi(identityApiRef);
+// const MatchOwnerEntity = () => {
+//   const { entity } = useEntity();
+//   const identityApi = useApi(identityApiRef);
 
-  const matchOwner = useAsync(async () => {
-    const identity = await identityApi.getBackstageIdentity();
-    const owner = identity.ownershipEntityRefs;
-    return owner
-      .map(value => value.substring(value.indexOf('/') + 1))
-      .some(value => value === entity.spec?.owner);
-  });
+//   const matchOwner = useAsync(async () => {
+//     const identity = await identityApi.getBackstageIdentity();
+//     const owner = identity.ownershipEntityRefs;
+//     return owner
+//       .map(value => value.substring(value.indexOf('/') + 1))
+//       .some(value => value === entity.spec?.owner);
+//   });
 
-  // if(!matchOwner.value){
-  //   return <></>
-  // }
+//   // if(!matchOwner.value){
+//   //   return <></>
+//   // }
 
-  return <EntityKubernetesContent refreshIntervalMs={30000} />;
-};
+//   return <EntityKubernetesContent refreshIntervalMs={30000} />;
+// };
 
-const Test = () => <EntityKubernetesContent refreshIntervalMs={30000} />;
+// const Test = () => <EntityKubernetesContent refreshIntervalMs={30000} />;
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -177,12 +177,14 @@ const overviewContent = (
 
 const serviceEntityPage = (
   <EntityLayout>
-    <EntityLayout.Route path="/kubernetes" title="Kubernetes">
-      <EntityKubernetesContent refreshIntervalMs={30000} />
-    </EntityLayout.Route>
-
     <EntityLayout.Route path="/" title="Overview">
       {overviewContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/rds" title="rds">
+      <Grid>
+        <RDSStop />
+      </Grid>
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">

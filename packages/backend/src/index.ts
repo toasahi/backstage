@@ -8,7 +8,6 @@
 import './otel/instrumentation';
 import { createBackend } from '@backstage/backend-defaults';
 
-
 const backend = createBackend();
 
 backend.add(import('@backstage/plugin-app-backend/alpha'));
@@ -48,6 +47,7 @@ backend.add(import('@backstage/plugin-search-backend-module-pg/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
 
-backend.add(import('./plugins/otel'))
+backend.add(import('./plugins/otel'));
+backend.add(import('./plugins/httpRouter'));
 
 backend.start();
